@@ -1,8 +1,10 @@
-function blocked = raycast3(currentRay,model)
+function blocked = raycast4(scene)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-    stillgoing = true;
+    currentRay = scene.ray;
     currentVoxel = currentRay.startVoxel;
+    model = scene.model;
+    stillgoing = true;
     currentPosition = currentVoxel;
     step = currentRay.vector / vecnorm(currentRay.vector);
     

@@ -23,20 +23,20 @@ visibilitywidth = 500;
     %rays_3 = cell{}
     %s_slices = sparse(slices);
     
-    thiscamera3 = thiscamera3 + [0 0 0];
-    thiscamera4 = thiscamera4 + [0 0 0];
+    %thiscamera3 = thiscamera3 + [0 0 300];
+    %thiscamera4 = thiscamera4 + [0 0 300];
     
     timestart = datetime();
-    for x=1:1%size(visibilitymodel,3)
+    for x=1:50%size(visibilitymodel,3)
         parfor z=1:size(visibilitymodel,2)
             col_3 = false([size(visibilitymodel,1) 1]);
             col_4 = false([size(visibilitymodel,1) 1]);
             for y=1:size(visibilitymodel,1)
                 pixel = [y z x];
                 ray_3 = UpRay(thiscamera3,pixel);
-                col_3(y) = raycast3(ray_3,ray_3.startVoxel,visibilitymodel);
+                col_3(y) = raycast3(ray_3,visibilitymodel);
                 ray_4 = UpRay(thiscamera4,pixel);
-                col_4(y) = raycast3(ray_4,ray_4.startVoxel,visibilitymodel);
+                col_4(y) = raycast3(ray_4,visibilitymodel);
             end
             visibility_matrices_3(:,z,x) = col_3;
             visibility_matrices_4(:,z,x) = col_4;
