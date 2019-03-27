@@ -12,6 +12,7 @@ camera4(:,2) = -camera4(:,2);
 camera4(:,3) = -camera4(:,3) - calibration_plate_thickness;
 
 %% import model information
+addpath(genpath('Mesh_voxelisation'));
 [stlcoords] = READ_stl('baselinelorrymodel.STL');
 xco = squeeze( stlcoords(:,1,:) )';
 xrange = max(xco,[],'all') - min(xco,[],'all');
