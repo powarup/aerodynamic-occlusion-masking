@@ -1,5 +1,5 @@
 %% import TIFF
-tiffin = imread('B00001_3.tif');
+tiffin = imread('Cam4_B00001.tif');
 toprow = 10;
 
 tiffin = tiffin - prctile(tiffin,90,'all');
@@ -20,18 +20,21 @@ disp('click the corners');
 cornerImagePoints = ginput(4)
 
 
-disp('click the middle 27');
-middleImagePoints = ginput(27)
+%disp('click the middle 27');
+%middleImagePoints = ginput(27)
 
 
-disp('click the top 27');
-topImagePoints = ginput(27)
+%disp('click the top 27');
+%topImagePoints = ginput(27)
 
 
-disp('click the bottom 27');
-bottomImagePoints = ginput(27)
+%disp('click the bottom 27');
+%bottomImagePoints = ginput(27)
 
-allImagePoints = [cornerImagePoints;middleImagePoints;topImagePoints;bottomImagePoints];
+%allImagePoints = [cornerImagePoints;middleImagePoints;topImagePoints;bottomImagePoints];
+
+allImagePoints = cornerImagePoints;
+worldPoints = cornerWorldPoints;
 
 %% calibrate
 
