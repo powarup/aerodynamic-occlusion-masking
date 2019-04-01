@@ -65,16 +65,13 @@ visibility_matrices_4 = false(size(visibilitymodel));
 
 timestart = datetime();
 
-max_x = 12;
-    
-parfor x=1:max_x%size(visibilitymodel,3)
+parfor x=xstart:xend%size(visibilitymodel,3)
     camera3_position = startcamera3 + [0 0 x-1];
     camera4_position = startcamera4 + [0 0 x-1];
+    %[frame_3, frame_4] = computeFrame(visibilitymodel,x,camera3_position,camera4_position);
     frame_3 = false([size(visibilitymodel,1) size(visibilitymodel,2)]);
     frame_4 = false([size(visibilitymodel,1) size(visibilitymodel,2)]);
     for z=1:size(visibilitymodel,2)
-        col_3 = false([size(visibilitymodel,1) 1]);
-        col_4 = false([size(visibilitymodel,1) 1]);
         for y=1:size(visibilitymodel,1)
             pixel = [y z x];
             ray_3 = UpRay(camera3_position,pixel);
@@ -88,6 +85,8 @@ parfor x=1:max_x%size(visibilitymodel,3)
     x;
 end
 
-(datetime() - timestart) / max_x
+(datetime() - timestart) / (xend-xstart+1)
 
-save('visibility_matrices.mat','visibility_matrices_3','visibility_matrices_4');
+chunkstring = strcat('visibility_matrices_chunk_',num2str(xstart),'_to_',num2str(xend),'.mat');
+
+save(chunkstring,'xstart','xend','visibility_matrices_3','visibility_matrices_4');
