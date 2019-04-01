@@ -64,24 +64,30 @@ visibility_matrices_4 = false(size(visibilitymodel));
 %s_slices = sparse(slices);
 
 timestart = datetime();
-for x=1:size(visibilitymodel,3)
+
+max_x = 12;
+    
+parfor x=1:max_x%size(visibilitymodel,3)
     camera3_position = startcamera3 + [0 0 x-1];
     camera4_position = startcamera4 + [0 0 x-1];
-    parfor z=1:size(visibilitymodel,2)
+    frame_3 = false([size(visibilitymodel,1) size(visibilitymodel,2)]);
+    frame_4 = false([size(visibilitymodel,1) size(visibilitymodel,2)]);
+    for z=1:size(visibilitymodel,2)
         col_3 = false([size(visibilitymodel,1) 1]);
         col_4 = false([size(visibilitymodel,1) 1]);
         for y=1:size(visibilitymodel,1)
             pixel = [y z x];
             ray_3 = UpRay(camera3_position,pixel);
-            col_3(y) = raycast3(ray_3,visibilitymodel);
+            frame_3(y,z) = raycast3(ray_3,visibilitymodel);
             ray_4 = UpRay(camera4_position,pixel);
-            col_4(y) = raycast3(ray_4,visibilitymodel);
+            frame_4(y,z) = raycast3(ray_4,visibilitymodel);
         end
-        visibility_matrices_3(:,z,x) = col_3;
-        visibility_matrices_4(:,z,x) = col_4;
     end
-    x
-    datetime() - timestart
+    visibility_matrices_3(:,:,x) = frame_3;
+    visibility_matrices_4(:,:,x) = frame_4;
+    x;
 end
+
+(datetime() - timestart) / max_x
 
 save('visibility_matrices.mat','visibility_matrices_3','visibility_matrices_4');
