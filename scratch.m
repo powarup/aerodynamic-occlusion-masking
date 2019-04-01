@@ -42,10 +42,10 @@ visibilitywidth = 500;
 yoffset = size(slices,1)/2;
 
 %% move the cameras into visibility space
-thiscamera3 = camera3;
-thiscamera4 = camera4;
-thiscamera3(:,1) = camera3(:,1) + visibilitywidth/2;
-thiscamera4(:,1) = camera4(:,1) + visibilitywidth/2;
+startcamera3 = camera3;
+startcamera4 = camera4;
+startcamera3(:,1) = camera3(:,1) + visibilitywidth/2;
+startcamera4(:,1) = camera4(:,1) + visibilitywidth/2;
     
 %% move the model into visibility space
 
@@ -63,28 +63,25 @@ visibility_matrices_4 = false(size(visibilitymodel));
 %rays_3 = cell{}
 %s_slices = sparse(slices);
 
-%thiscamera3 = thiscamera3 + [0 0 300];
-%thiscamera4 = thiscamera4 + [0 0 300];
-
-%timestart = datetime();
+timestart = datetime();
 for x=1:size(visibilitymodel,3)
+    camera3_position = startcamera3 + [0 0 x-1];
+    camera4_position = startcamera4 + [0 0 x-1];
     parfor z=1:size(visibilitymodel,2)
         col_3 = false([size(visibilitymodel,1) 1]);
         col_4 = false([size(visibilitymodel,1) 1]);
         for y=1:size(visibilitymodel,1)
             pixel = [y z x];
-            ray_3 = UpRay(thiscamera3,pixel);
+            ray_3 = UpRay(camera3_position,pixel);
             col_3(y) = raycast3(ray_3,visibilitymodel);
-            ray_4 = UpRay(thiscamera4,pixel);
+            ray_4 = UpRay(camera4_position,pixel);
             col_4(y) = raycast3(ray_4,visibilitymodel);
         end
         visibility_matrices_3(:,z,x) = col_3;
         visibility_matrices_4(:,z,x) = col_4;
     end
-    %x
-    %datetime() - timestart
-    thiscamera3 = thiscamera3 + [0 0 1];
-    thiscamera4 = thiscamera4 + [0 0 1];
+    x
+    datetime() - timestart
 end
 
 save('visibility_matrices.mat','visibility_matrices_3','visibility_matrices_4');
