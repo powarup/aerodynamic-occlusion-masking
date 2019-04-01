@@ -1,3 +1,13 @@
+if (exist('xstart','var') == 0) 
+    xstart = 1;
+end
+if (exist('xend','var') == 0) 
+    xend = 12;
+end
+if (exist('verticaloffset','var') == 0) 
+    verticaloffset = 0;
+end
+
 %% import camera information
 camera3_struct = load('camera3_calibration.mat','translationVector');
 camera4_struct = load('camera4_calibration.mat','translationVector');
@@ -37,6 +47,8 @@ for i=1:floor(zrange*zscale)
 end
 
 visibilitywidth = 500;
+visibilitylength = 1900;
+visibilityheight = size(slices,2) + verticaloffset;
 
 %% calculate the width of the model
 yoffset = size(slices,1)/2;
@@ -49,9 +61,9 @@ startcamera4(:,1) = camera4(:,1) + visibilitywidth/2;
     
 %% move the model into visibility space
 
-visibilitymodel = false([visibilitywidth size(slices,2) size(slices,3)]);
+visibilitymodel = false([visibilitywidth visibilityheight visibilitylength+600]);
 modelstart = (visibilitywidth - size(slices,1))/2;
-visibilitymodel(modelstart+1:visibilitywidth-modelstart,:,:) = slices;
+visibilitymodel(modelstart+1:visibilitywidth-modelstart, verticaloffset+1:visibilityheight, 1:size(slices,3)) = slices;
 
 %% ray trace
 
