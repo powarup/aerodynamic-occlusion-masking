@@ -37,7 +37,7 @@ function slices = convertModel(stlpath)
     end
     
     %% save the model slices
-    save(strcat(stlpath,'.mat'),'model');
+    save(strcat(stlpath,'.mat'),'model','slices');
     
     % plotModel(slices)
 

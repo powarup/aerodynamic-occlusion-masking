@@ -2,7 +2,7 @@ if (exist('xstart','var') == 0)
     xstart = 1;
 end
 if (exist('xend','var') == 0) 
-    xend = 12;
+    xend = 1900;
 end
 if (exist('verticaloffset','var') == 0) 
     verticaloffset = 0;
