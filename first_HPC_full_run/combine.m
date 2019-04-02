@@ -1,0 +1,37 @@
+load('visibility_matrices_chunk_1_to_400.mat','visibility_matrices_3');
+vis = visibility_matrices_3;
+load('visibility_matrices_chunk_401_to_800.mat','visibility_matrices_3');
+vis = vis | visibility_matrices_3;
+load('visibility_matrices_chunk_801_to_1200.mat','visibility_matrices_3');
+vis = vis | visibility_matrices_3;
+load('visibility_matrices_chunk_1201_to_1300.mat','visibility_matrices_3');
+vis = vis | visibility_matrices_3;
+load('visibility_matrices_chunk_1301_to_1400.mat','visibility_matrices_3');
+vis = vis | visibility_matrices_3;
+load('visibility_matrices_chunk_1401_to_1500.mat','visibility_matrices_3');
+vis = vis | visibility_matrices_3;
+load('visibility_matrices_chunk_1501_to_1600.mat','visibility_matrices_3');
+vis = vis | visibility_matrices_3;
+load('visibility_matrices_chunk_1601_to_1900.mat','visibility_matrices_3');
+vis = vis | visibility_matrices_3;
+visibility_matrices_3 = vis;
+
+load('visibility_matrices_chunk_1_to_400.mat','visibility_matrices_4');
+vis = visibility_matrices_4;
+load('visibility_matrices_chunk_401_to_800.mat','visibility_matrices_4');
+vis = vis | visibility_matrices_4;
+load('visibility_matrices_chunk_801_to_1200.mat','visibility_matrices_4');
+vis = vis | visibility_matrices_4;
+load('visibility_matrices_chunk_1201_to_1300.mat','visibility_matrices_4');
+vis = vis | visibility_matrices_4;
+load('visibility_matrices_chunk_1301_to_1400.mat','visibility_matrices_4');
+vis = vis | visibility_matrices_4;
+load('visibility_matrices_chunk_1401_to_1500.mat','visibility_matrices_4');
+vis = vis | visibility_matrices_4;
+load('visibility_matrices_chunk_1501_to_1600.mat','visibility_matrices_4');
+vis = vis | visibility_matrices_4;
+load('visibility_matrices_chunk_1601_to_1900.mat','visibility_matrices_4');
+vis = vis | visibility_matrices_4;
+visibility_matrices_4 = vis;
+
+save('visibility_matrices.mat','visibility_matrices_3','visibility_matrices_4');
