@@ -9,7 +9,7 @@ function matrices_out = smear_space(matrices,nCells)
         for i=(1+nCells):(size(matrices,1)-1-nCells) % along first dimension
             for j=(1+nCells):(size(matrices,2)-1-nCells) % along second dimension
                 for istep=nCells:-1:1
-                    matrices_out(i,j,k) = matrices(i + istep,j,k) | matrices_out(i,j,k);
+                    matrices_out(i,j,k) = matrices(i - istep,j,k) | matrices_out(i,j,k);
                 end
                 for istep=1:nCells
                     matrices_out(i,j,k) = matrices_out(i,j,k) | matrices(i + istep,j,k);
@@ -24,7 +24,7 @@ function matrices_out = smear_space(matrices,nCells)
         for j=(1+nCells):(size(matrices,2)-1-nCells) % along second dimension
             for i=(1+nCells):(size(matrices,1)-1-nCells) % along first dimension
                 for jstep=nCells:-1:1
-                    matrices_out(i,j,k) = matrices(i,j+jstep,k) | matrices_out(i,j,k);
+                    matrices_out(i,j,k) = matrices(i,j-jstep,k) | matrices_out(i,j,k);
                 end
                 for jstep=1:nCells
                     matrices_out(i,j,k) = matrices_out(i,j,k) | matrices(i,j+jstep,k);

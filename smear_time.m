@@ -10,7 +10,7 @@ function matrices_out = smear_time(matrices,nSteps)
     for t=1+nSteps:totalTime-1-nSteps
         matrices_out(:,:,t) = matrices(:,:,t);
         for s=1:nSteps
-            matrices_out(:,:,t) = matrices_out(:,:,t) & matrices(:,:,t-s) & matrices(:,:,t+s);
+            matrices_out(:,:,t) = matrices_out(:,:,t) | matrices(:,:,t-s) | matrices(:,:,t+s);
         end
     end
             
