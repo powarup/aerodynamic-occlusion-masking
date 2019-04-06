@@ -21,6 +21,8 @@ mask = mask_or;
 % following offsets are the co-ordinates in lorry space of the mask's 0,0,0
 % point
 
+min_z = min(lorry.Z_0,[],'all') + 15.6;
+
 %min_z = min_z; % override point if you want to manually set min_z
 
 z_offset = min_z-1; % model space starts at the bottom, lorry space in middle
@@ -40,7 +42,7 @@ for x=1:size(lorry.Y_0,2)
             if (~nans(y,x,z))
                 position_yxz = [lorry.Y_0(y,x,z) lorry.X_0(y,x,z) lorry.Z_0(y,x,z)] - start;
                 position = round([position_yxz(1) position_yxz(3) position_yxz(2)]);
-                if position(1) > size(mask,1) || mask(position(1),position(2),position(3))
+                if position(1) > size(mask,1) || position(2) < 1 || mask(position(1),position(2),position(3))
                     count = count+1;
                     lorry.V_0(y,x,z) = NaN;
                     lorry.W_0(y,x,z) = NaN;
@@ -55,4 +57,4 @@ for x=1:size(lorry.Y_0,2)
 end
 toc
 count
-save('filtered_lorry.mat','lorry');rot90
+save('filtered_lorry.mat','lorry');
