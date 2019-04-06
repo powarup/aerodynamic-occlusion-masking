@@ -1,5 +1,5 @@
 %% import TIFF
-tiffin = imread('Cam4_B00001.tif');
+tiffin = imread('Cam3_B00001.tif');
 toprow = 10;
 
 tiffin = tiffin - prctile(tiffin,90,'all');
@@ -66,4 +66,4 @@ reprojectionError = mean(vecnorm(allreprojected - groundTruth,2,2));
 
 %% save
 
-save('camera4_calibration.mat','P','params','rotationMatrix','translationVector','cornerImagePoints','middleImagePoints','topImagePoints','bottomImagePoints','allImagePoints','cornerWorldPoints','middleWorldPoints','topWorldPoints','bottomWorldPoints','worldPoints','reprojectionError');
+save('camera4_calibration.mat','P','params','rotationMatrix','translationVector','cornerImagePoints','allImagePoints','cornerWorldPoints','worldPoints','reprojectionError');
