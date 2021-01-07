@@ -2,3 +2,5 @@
 *.m~
 *~
 /UpRay.m~
+/scratch.m~
+/.DS_Store
